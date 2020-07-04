@@ -88,16 +88,16 @@ input:-moz-placeholder {
 }
 .login-details {
   animation-name: leftToRight;
-  animation-duration: 15s;
+  animation-duration: 10s;
   animation-timing-function: ease-out;
   animation-iteration-count: infinite;
 }
 @keyframes leftToRight {
   from {
-    transform: translateX(-55rem);
+    opacity: 0;
   }
   to {
-    transform: translateX(50rem);
+    opacity: 1;
   }
 }
 .dashboard {
@@ -159,6 +159,7 @@ table {
   width: 100%;
   height: 20rem;
   margin-top: 1rem;
+  margin-bottom: 1rem;
   overflow: auto;
 }
 th,
