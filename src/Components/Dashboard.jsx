@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component } from "react";
 import Calculations from "./Calculations/Calculations";
 import Details from "./Details/Details";
 import axios from "axios";
@@ -39,9 +39,9 @@ class Dashboard extends Component {
   render() {
     let transactions = [];
     if (this.context.user.username === "access") {
-      transactions = this.state.publicTransactions;//display to everybody
+      transactions = this.state.publicTransactions; //display to everybody
     } else {
-      transactions = this.state.privateTransactions;//display to specific people
+      transactions = this.state.privateTransactions; //display to specific people
     }
     return (
       <div>
@@ -60,12 +60,8 @@ class Dashboard extends Component {
           </Link>
         </p>
         <div className="dashboard">
-          <Calculations
-            transactions={transactions}
-          />
-          <Details
-            transactions={transactions}
-          />
+          <Calculations transactions={transactions} />
+          <Details transactions={transactions} />
         </div>
       </div>
     );
