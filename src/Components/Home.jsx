@@ -8,7 +8,7 @@ const Home = (props) => {
   const [user, setUser] = React.useState({ username: "", password: "" });
   const [error, setError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
-  
+
   const handleChange = (e) => {
     setUser({
       ...user,
@@ -17,22 +17,27 @@ const Home = (props) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    axios
-      .post("https://limitless-journey-30846.herokuapp.com/auth", user)
-      .then((res) => {
-        localStorage.setItem("token", res.data.token);
-        axios.defaults.headers.common["x-auth-token"] = res.data.token;
-        authContext.loginUser();
-        localStorage.setItem("isAuthenticated", true);
-        setLoading(false);
-        props.history.push("/");
-      })
-      .catch((err) => {
-        setLoading(false);
-        setError(err.response.data.msg);
-        setTimeout(() => setError(""), 2000);
-      });
+    if (user.username === "" || user.password === "") {
+      setError("Please fill all fields");
+      setTimeout(() => setError(""), 2000);
+    } else {
+      setLoading(true);
+      axios
+        .post("https://limitless-journey-30846.herokuapp.com/auth", user)
+        .then((res) => {
+          localStorage.setItem("token", res.data.token);
+          axios.defaults.headers.common["x-auth-token"] = res.data.token;
+          authContext.loginUser();
+          localStorage.setItem("isAuthenticated", true);
+          setLoading(false);
+          props.history.push("/");
+        })
+        .catch((err) => {
+          setLoading(false);
+          setError(err.response.data.msg);
+          setTimeout(() => setError(""), 2000);
+        });
+    }
   };
   return (
     <div className="header">

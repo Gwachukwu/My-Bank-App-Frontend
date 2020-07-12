@@ -21,24 +21,34 @@ const AddTransaction = () => {
   const authContext = React.useContext(AuthContext);
   const handleClick = (e) => {
     e.preventDefault();
-    setLoading(true);
-    axios
-      .post(
-        `https://limitless-journey-30846.herokuapp.com/${authContext.route}`,
-        state
-      )
-      .then((res) => {
-        setAlert(res.data);
-        setLoading(false);
-        res.data === "Transaction successful" && window.location.reload();
-      })
-      .catch((err) => {
-        setLoading(false);
-        setAlert(err.response.data.msg);
-      });
-    setTimeout(() => setAlert(""), 2000);
+    if (
+      state.date === "" ||
+      state.amount === "" ||
+      state.description === "" ||
+      state.type === ""
+    ) {
+      setAlert("Please fill all fields");
+      setTimeout(() => setAlert(""), 2000);
+    } else {
+      setLoading(true);
+      axios
+        .post(
+          `https://limitless-journey-30846.herokuapp.com/${authContext.route}`,
+          state
+        )
+        .then((res) => {
+          setAlert(res.data);
+          setLoading(false);
+          res.data === "Transaction successful" && window.location.reload();
+        })
+        .catch((err) => {
+          setLoading(false);
+          setAlert(err.response.data.msg);
+        });
+      setTimeout(() => setAlert(""), 2000);
+    }
   };
-  
+
   return (
     <div className="add-transaction">
       <form>
@@ -53,11 +63,21 @@ const AddTransaction = () => {
           placeholder="Amount"
           onChange={handleChange}
         />
-        <select name="type" id="" onChange={handleChange}>
-          <option value="">- Choose type -</option>
-          <option value="credit">Credit</option>
-          <option value="debit">Debit</option>
-        </select>
+        <div className="select-input">
+          <label htmlFor="select" className="type">
+            Type
+          </label>
+          <select
+            name="type"
+            id="select"
+            onChange={handleChange}
+            className="date"
+          >
+            <option value="">- Choose type -</option>
+            <option value="credit">Credit</option>
+            <option value="debit">Debit</option>
+          </select>
+        </div>
         <input
           type="text"
           name="description"
@@ -68,7 +88,11 @@ const AddTransaction = () => {
         <p>{alert}</p>
         <br />
         {loading && (
-          <img src={Loading} alt="loading..." className="loading-gif gif-margin" />
+          <img
+            src={Loading}
+            alt="loading..."
+            className="loading-gif gif-margin"
+          />
         )}
         <button onClick={handleClick}>Add</button>
       </form>

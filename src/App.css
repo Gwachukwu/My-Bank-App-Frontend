@@ -67,7 +67,6 @@ button {
   background-color: inherit;
   color: white;
   padding: 0.1rem;
-  outline: none;
   height: 2rem;
 }
 input::-webkit-input-placeholder {
@@ -119,7 +118,7 @@ input:-moz-placeholder {
   place-items: center;
 }
 .loading-gif-dashboard {
-  width: 15rem;
+  width: 3rem;
 }
 .calculations {
   width: 15rem;
@@ -184,6 +183,15 @@ select {
   width: 10rem;
   margin: 1rem;
   margin-left: 2rem;
+  color: black;
+  font-weight: bolder;
+}
+.select-input{
+  display: flex;
+  justify-content: center;
+}
+.type{
+  align-self: center;
 }
 .add-border {
   border-bottom: 0.1rem solid white;
